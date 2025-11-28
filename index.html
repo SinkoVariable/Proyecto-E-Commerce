@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WyvernStore | Manga y Cómics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="barra-navegacion" id="inicio">
+    <div class="logo" aria-label="WyvernStore logo">
+      <img src="assets/wyvern-logo.svg" alt="Logo de WyvernStore" class="logo__imagen" width="52" height="52">
+      <div class="logo__texto">
+        <span class="logo__titulo">WyvernStore</span>
+        <span class="logo__subtitulo">Manga & Cómic</span>
+      </div>
+    </div>
+    <nav class="menu">
+      <a href="#inicio" class="menu__enlace">Inicio</a>
+      <a href="#catalogo" class="menu__enlace">Catálogo</a>
+      <a href="#ofertas" class="menu__enlace">Ofertas</a>
+      <a href="#contacto" class="menu__enlace">Contacto</a>
+      <button class="pill pill--ghost pill--sm" type="button" id="login-trigger">Iniciar sesión</button>
+      <button class="pill pill--ghost" type="button" aria-label="Ver carrito" id="cart-toggle">
+        🛒 <span class="pill__label">Carrito</span>
+        <span class="pill__badge" id="cart-count">0</span> <!-- CAMBIO: contador visual del carrito -->
+      </button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="seccion-hero">
+      <div class="hero__contenido">
+        <p class="hero__etiqueta">Nueva temporada · Colecciones exclusivas</p>
+        <h1>WyvernStore: Historias que incendian la imaginación</h1>
+        <p class="hero__descripcion">Descubre mangas y cómics con energía épica, portadas de colección y envíos exprés. Arma tu biblioteca geek con un solo clic.</p>
+        <div class="hero__acciones">
+          <a class="pill" href="#catalogo">Ver catálogo</a>
+          <button class="pill pill--ghost" type="button">Ver lanzamientos</button>
+        </div>
+        <div class="hero__datos">
+          <span>Arte de autor</span>
+          <span>Ediciones limitadas</span>
+          <span>Pago seguro</span>
+        </div>
+      </div>
+      <div class="hero__visual" role="presentation">
+        <div class="hero__glow"></div>
+        <div class="hero__tarjeta">
+          <p class="hero__mini">Tienda geek</p>
+          <strong>WyvernStore</strong>
+          <span>Desde 2024</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="destacados" id="ofertas" aria-label="Destacados de manga y cómic">
+      <div class="destacados__encabezado">
+        <div>
+          <p class="caption">Selección Wyvern</p>
+          <h2>Destacados de la semana</h2>
+        </div>
+        <a class="enlace-simple" href="#catalogo">Ver todo el catálogo →</a>
+      </div>
+      <div class="destacados__grid">
+        <article class="tarjeta-destacado">
+          <span class="tarjeta-destacado__sello">Nuevo</span>
+          <h3>Jujutsu Kaisen Vol. 3</h3>
+          <p>Domina la energía maldita con Yuji y el escuadrón de Tokio.</p>
+          <div class="tarjeta-destacado__pie">
+            <span class="precio">$14.50</span>
+            <button class="pill pill--ghost" data-add="jujutsu-03">Agregar</button>
+          </div>
+        </article>
+        <article class="tarjeta-destacado">
+          <span class="tarjeta-destacado__sello">Colección</span>
+          <h3>Batman: Año Uno</h3>
+          <p>La reinvención definitiva de Gotham por Frank Miller y Mazzucchelli.</p>
+          <div class="tarjeta-destacado__pie">
+            <span class="precio">$16.75</span>
+            <button class="pill pill--ghost" data-add="batman-001">Agregar</button>
+          </div>
+        </article>
+        <article class="tarjeta-destacado">
+          <span class="tarjeta-destacado__sello">Top ventas</span>
+          <h3>Chainsaw Man Vol. 2</h3>
+          <p>Denji y Power desatan caos demoníaco con estilo sangriento.</p>
+          <div class="tarjeta-destacado__pie">
+            <span class="precio">$13.25</span>
+            <button class="pill pill--ghost" data-add="chainsaw-02">Agregar</button>
+          </div>
+        </article>
+        <article class="tarjeta-destacado">
+          <span class="tarjeta-destacado__sello">Oferta</span>
+          <h3>My Hero Academia Vol. 1</h3>
+          <p>El inicio de Deku y All Might en una edición lista para coleccionistas.</p>
+          <div class="tarjeta-destacado__pie">
+            <span class="precio">$12.99</span>
+            <button class="pill pill--ghost" data-add="mha-01">Agregar</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="catalogo" id="catalogo" aria-label="Catálogo de productos">
+      <div class="catalog__header">
+        <div>
+          <p class="caption">Catálogo completo</p>
+          <h2>Explora todos los títulos</h2>
+        </div>
+        <p class="caption">Agrega al carrito y calcula tu total en tiempo real.</p>
+      </div>
+      <div class="catalog__grid" id="product-grid">
+        <!-- Productos generados por JS -->
+      </div>
+    </section>
+
+    <aside class="cart" aria-label="Carrito de compras" id="cart">
+      <header class="cart__header">
+        <div>
+          <p class="caption">Carrito</p>
+          <h3>Preparar pedido</h3>
+        </div>
+        <button class="icon-button" type="button" id="close-cart" aria-label="Cerrar carrito">✕</button>
+      </header>
+      <div class="cart__body" id="cart-items">
+        <p class="empty">Tu carrito está vacío. Agrega un tomo para comenzar.</p>
+      </div>
+      <footer class="cart__footer">
+        <div class="cart__total">
+          <span>Total</span>
+          <strong id="cart-total">$0.00</strong>
+        </div>
+        <div class="cart__actions">
+          <button class="pill pill--ghost" type="button" id="clear-cart">Vaciar</button>
+          <button class="pill pill--primary" type="button" id="checkout">Proceder</button>
+        </div>
+      </footer>
+    </aside>
+    <div class="cart-backdrop" id="cart-backdrop" aria-hidden="true"></div> <!-- CAMBIO: fondo interactivo para el carrito -->
+  </main>
+
+  <section class="modal" id="login-modal" aria-hidden="true" role="dialog" aria-labelledby="login-title">
+    <div class="modal__dialog">
+      <header class="modal__header">
+        <div>
+          <p class="caption">Cuenta Wyvern</p>
+          <h3 id="login-title">Iniciar sesión</h3>
+        </div>
+        <button class="icon-button" type="button" id="login-close" aria-label="Cerrar modal">✕</button>
+      </header>
+      <form class="form" id="login-form">
+        <label class="form__campo">
+          <span>Correo electrónico</span>
+          <input type="email" name="email" placeholder="tucuenta@correo.com" required>
+        </label>
+        <label class="form__campo">
+          <span>Contraseña</span>
+          <input type="password" name="password" placeholder="********" minlength="6" required>
+        </label>
+        <p class="caption" id="login-help">Se usa Firebase Authentication. Configura tus credenciales.</p>
+        <div class="form__acciones">
+          <button class="pill pill--ghost" type="button" id="login-google">Google</button>
+          <button class="pill" type="submit">Entrar</button>
+        </div>
+        <div class="form__extras">
+          <span class="caption">¿Aún sin cuenta?</span>
+          <button class="link-button" type="button" id="signup">Crear una cuenta</button>
+        </div>
+        <p class="form__estado" id="login-status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <div class="usuario" id="user-badge" hidden>
+    <span class="usuario__estado" id="user-name">Conectado</span>
+    <button class="pill pill--ghost pill--sm" type="button" id="logout">Cerrar sesión</button>
+  </div>
+
+  <footer class="footer" id="contacto">
+    <p>WyvernStore · Contacto: soporte@wyvernstore.com · Historias que despiertan dragones interiores.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module" src="auth.js"></script>
+</body>
+</html>
