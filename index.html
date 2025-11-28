@@ -1,1 +1,83 @@
-|
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WyvernStore | Manga y Cómics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand__mark" aria-hidden="true">WS</span>
+      <div>
+        <p class="brand__eyebrow">WyvernStore</p>
+        <p class="brand__title">Tienda geek de mangas y cómics</p>
+      </div>
+    </div>
+    <nav class="quick-actions">
+      <button class="pill pill--ghost" type="button" aria-label="Ver carrito" id="cart-toggle">
+        🛒 <span class="pill__label">Carrito</span>
+      </button>
+      <button class="pill" type="button">
+        <span class="pill__label">Novedades</span>
+      </button>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="hero">
+      <div class="hero__badge">Nueva temporada</div>
+      <h1>Explora el catálogo WyvernStore</h1>
+      <p>Selecciona tus volúmenes favoritos de manga y cómic. Añádelos al carrito y prepárate para tu próxima maratón de lectura.</p>
+      <div class="hero__meta">
+        <span>Arte de coleccionista</span>
+        <span>Envíos rápidos</span>
+        <span>Ediciones especiales</span>
+      </div>
+    </section>
+
+    <section class="catalog" aria-label="Catálogo de productos">
+      <div class="catalog__header">
+        <h2>Mangas y cómics destacados</h2>
+        <p class="caption">Curados con energía geek. Agrega al carrito para calcular tu total.</p>
+      </div>
+      <div class="catalog__grid" id="product-grid">
+        <!-- Productos generados por JS -->
+      </div>
+    </section>
+
+    <aside class="cart" aria-label="Carrito de compras" id="cart">
+      <header class="cart__header">
+        <div>
+          <p class="caption">Carrito</p>
+          <h3>Preparar pedido</h3>
+        </div>
+        <button class="icon-button" type="button" id="close-cart" aria-label="Cerrar carrito">✕</button>
+      </header>
+      <div class="cart__body" id="cart-items">
+        <p class="empty">Tu carrito está vacío. Agrega un tomo para comenzar.</p>
+      </div>
+      <footer class="cart__footer">
+        <div class="cart__total">
+          <span>Total</span>
+          <strong id="cart-total">$0.00</strong>
+        </div>
+        <div class="cart__actions">
+          <button class="pill pill--ghost" type="button" id="clear-cart">Vaciar</button>
+          <button class="pill pill--primary" type="button" id="checkout">Proceder</button>
+        </div>
+      </footer>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <p>WyvernStore · Historias que despiertan dragones interiores.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
