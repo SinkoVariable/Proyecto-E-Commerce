@@ -43,22 +43,15 @@ const products = [
   }
 ];
 
-const productGrid = document.getElementById('product-grid');
-const cartItems = document.getElementById('cart-items');
-const cartTotal = document.getElementById('cart-total');
-const clearCartBtn = document.getElementById('clear-cart');
-const checkoutBtn = document.getElementById('checkout');
-const cartToggle = document.getElementById('cart-toggle');
-const cart = document.getElementById('cart');
-const closeCartBtn = document.getElementById('close-cart');
-
 const cartState = new Map();
 
 function formatPrice(value) {
   return `$${value.toFixed(2)}`;
 }
 
-function renderProducts() {
+function renderProducts(grid) {
+  if (!grid) return;
+
   const fragment = document.createDocumentFragment();
 
   products.forEach((product) => {
@@ -83,10 +76,12 @@ function renderProducts() {
     fragment.appendChild(card);
   });
 
-  productGrid.appendChild(fragment);
+  grid.appendChild(fragment);
 }
 
-function renderCart() {
+function renderCart(cartItems, cartTotal) {
+  if (!cartItems || !cartTotal) return;
+
   cartItems.innerHTML = '';
 
   if (cartState.size === 0) {
@@ -123,18 +118,20 @@ function renderCart() {
   cartTotal.textContent = formatPrice(total);
 }
 
-function addToCart(productId) {
+function addToCart(productId, cartItems, cartTotal, cart) {
   const product = products.find((p) => p.id === productId);
   if (!product) return;
 
   const existing = cartState.get(productId) || { ...product, quantity: 0 };
   existing.quantity += 1;
   cartState.set(productId, existing);
-  renderCart();
-  openCart();
+  renderCart(cartItems, cartTotal);
+  if (cart) {
+    openCart(cart);
+  }
 }
 
-function updateQuantity(productId, delta) {
+function updateQuantity(productId, delta, cartItems, cartTotal) {
   const item = cartState.get(productId);
   if (!item) return;
 
@@ -144,57 +141,72 @@ function updateQuantity(productId, delta) {
   } else {
     cartState.set(productId, { ...item, quantity: newQty });
   }
-  renderCart();
+  renderCart(cartItems, cartTotal);
 }
 
-function removeFromCart(productId) {
+function removeFromCart(productId, cartItems, cartTotal) {
   cartState.delete(productId);
-  renderCart();
+  renderCart(cartItems, cartTotal);
 }
 
-function clearCart() {
+function clearCart(cartItems, cartTotal) {
   cartState.clear();
-  renderCart();
+  renderCart(cartItems, cartTotal);
 }
 
-function openCart() {
-  cart.classList.add('is-open');
+function openCart(cart) {
+  cart?.classList.add('is-open');
 }
 
-function closeCart() {
-  cart.classList.remove('is-open');
+function closeCart(cart) {
+  cart?.classList.remove('is-open');
 }
 
-function handleCatalogClick(event) {
+function handleCatalogClick(event, cartItems, cartTotal, cart) {
   const addId = event.target.getAttribute('data-add');
   if (addId) {
-    addToCart(addId);
+    addToCart(addId, cartItems, cartTotal, cart);
   }
 }
 
-function handleCartClick(event) {
+function handleCartClick(event, cartItems, cartTotal) {
   const decId = event.target.getAttribute('data-dec');
   const incId = event.target.getAttribute('data-inc');
   const removeId = event.target.getAttribute('data-remove');
 
-  if (decId) updateQuantity(decId, -1);
-  if (incId) updateQuantity(incId, 1);
-  if (removeId) removeFromCart(removeId);
+  if (decId) updateQuantity(decId, -1, cartItems, cartTotal);
+  if (incId) updateQuantity(incId, 1, cartItems, cartTotal);
+  if (removeId) removeFromCart(removeId, cartItems, cartTotal);
 }
 
-function bindEvents() {
-  productGrid.addEventListener('click', handleCatalogClick);
-  cartItems.addEventListener('click', handleCartClick);
-  clearCartBtn.addEventListener('click', clearCart);
-  checkoutBtn.addEventListener('click', () => alert('Ajusta tus datos de envío para completar la compra.'));
+function initWyvernStore() {
+  const productGrid = document.getElementById('product-grid');
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  const clearCartBtn = document.getElementById('clear-cart');
+  const checkoutBtn = document.getElementById('checkout');
+  const cartToggle = document.getElementById('cart-toggle');
+  const cart = document.getElementById('cart');
+  const closeCartBtn = document.getElementById('close-cart');
 
-  cartToggle.addEventListener('click', () => {
-    cart.classList.toggle('is-open');
+  if (!productGrid || !cartItems || !cartTotal) {
+    console.warn('WyvernStore: No se encontró el layout esperado en el DOM.');
+    return;
+  }
+
+  renderProducts(productGrid);
+  renderCart(cartItems, cartTotal);
+
+  productGrid.addEventListener('click', (event) => handleCatalogClick(event, cartItems, cartTotal, cart));
+  cartItems.addEventListener('click', (event) => handleCartClick(event, cartItems, cartTotal));
+  clearCartBtn?.addEventListener('click', () => clearCart(cartItems, cartTotal));
+  checkoutBtn?.addEventListener('click', () => alert('Ajusta tus datos de envío para completar la compra.'));
+
+  cartToggle?.addEventListener('click', () => {
+    cart?.classList.toggle('is-open');
   });
 
-  closeCartBtn.addEventListener('click', closeCart);
+  closeCartBtn?.addEventListener('click', () => closeCart(cart));
 }
 
-renderProducts();
-renderCart();
-bindEvents();
+document.addEventListener('DOMContentLoaded', initWyvernStore);
